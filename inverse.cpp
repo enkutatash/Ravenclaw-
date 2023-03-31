@@ -61,8 +61,13 @@ int main()
     cout<<"enter number ";cin>>num1;
     cout<<"enter base of number you entered ";cin>>base1;
     cout<<"to which base you want to change ";cin>>base2;
-z=todecimal(num1,base1);
-converter(z,base2);
+    if(num1==0){
+        cout<<0;
+    else{
+        z=todecimal(num1,base1);
+        converter(z,base2);
+    }
+
 
 return 0;
 }
