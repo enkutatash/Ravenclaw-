@@ -1,79 +1,68 @@
-#include <iostream>
-#include <stack>
+#include<iostream>
+#include<stack>
+#include<cmath>
 using namespace std;
-stack<int>binary;
-stack<int>octal;
-stack<int>hexa;
-void tobinary(int x){
-while(x>0){
-        int y;
-        y=x%2;
-    binary.push(y);
-    x/=2;
+//any number in any base to decimal
+int todecimal(int x,int b){
+     int dec = 0, i = 0, rem;
+
+  while (x!=0) {
+    rem = x % 10;
+    x /= 10;
+    dec += rem * pow(b, i);
+    ++i;
+  }
+  return dec;
 }
-while(!binary.empty()){
-    cout<<binary.top();
-    binary.pop();
-}
-}
-void tooctal(int x){
-while(x>0){
+stack<int>converted;
+//decimal to any base
+void converter(int num,int base){
+while(num>0){
     int y;
-        y=x%8;
-    octal.push(y);
-    x/=8;
+        y=num%base;
+    converted.push(y);
+    num/=base;
 }
-while(!octal.empty()){
-    cout<<octal.top();
-    octal.pop();
-}
-}
-void tohexa(int x){
-while(x>0){
-    int y;
-        y=x%16;
-    hexa.push(y);
-    x/=16;
-}
-while(!hexa.empty()){
-    switch (hexa.top()){
+while(!converted.empty()){
+        if(base==16){
+            switch (converted.top()){
 case 10:
     cout<<'A';
     break;
 case 11:
     cout<<'B';
       break;
-case 13:
+case 12:
     cout<<'c';
       break;
-case 14:
+case 13:
     cout<<'D';
       break;
-case 15:
+case 14:
     cout<<'E';
       break;
-case 16:
+case 15:
     cout<<'F';
       break;
 default:
-    cout<<hexa.top();
+    cout<<converted.top();
       break;
     }
-    hexa.pop();
-}
-}
+        }else{
+            cout<<converted.top();
+        }
 
-int main(){
-int x;
-cin>>x;
-cout<<"binary ";
-tobinary(x);
-cout<<endl;
-cout<<"octal ";
-tooctal(x);
-cout<<endl;
-cout<<"hexa decimal ";
-tohexa(x);
-cout<<endl;
-main();
+    converted.pop();
+}
+}
+int main()
+{
+    int num1,base1,z,base2;
+    cout<<"enter number ";cin>>num1;
+    cout<<"enter base of number you entered ";cin>>base1;
+    cout<<"to which base you want to change ";cin>>base2;
+z=todecimal(num1,base1);
+converter(z,base2);
+
+return 0;
 }
