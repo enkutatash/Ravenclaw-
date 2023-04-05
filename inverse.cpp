@@ -61,13 +61,35 @@ int main()
     cout<<"enter number ";cin>>num1;
     cout<<"enter base of number you entered ";cin>>base1;
     cout<<"to which base you want to change ";cin>>base2;
+    stack<int>number;
+    int Num=num1;
+    while(Num>0){
+        int y;
+        y=Num%10;
+    number.push(y);
+    Num/=10;
+    }
+    bool k=true;
+while(!number.empty()){
+    if(number.top()<base1){
+        k&=true;
+    }else{
+    k&=false;
+}
+number.pop();
+}
+
+if(k){
     if(num1==0){
         cout<<0;
-    else{
+    }else{
         z=todecimal(num1,base1);
         converter(z,base2);
     }
-
+}else{
+cout<<"invalid input"<<endl;
+}
+main();
 
 return 0;
 }
