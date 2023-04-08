@@ -1,95 +1,105 @@
-#include<iostream>
-#include<stack>
+#include <iostream>
 #include<cmath>
+#include<cstring>
+#include<algorithm>
 using namespace std;
-//any number in any base to decimal
-int todecimal(int x,int b){
-     int dec = 0, i = 0, rem;
 
-  while (x!=0) {
-    rem = x % 10;
-    x /= 10;
-    dec += rem * pow(b, i);
-    ++i;
-  }
-  return dec;
-}
-stack<int>converted;
-//decimal to any base
-void converter(int num,int base){
-while(num>0){
-    int y;
-        y=num%base;
-    converted.push(y);
-    num/=base;
-}
-while(!converted.empty()){
-        if(base==16){
-            switch (converted.top()){
-case 10:
-    cout<<'A';
-    break;
-case 11:
-    cout<<'B';
-      break;
-case 12:
-    cout<<'c';
-      break;
-case 13:
-    cout<<'D';
-      break;
-case 14:
-    cout<<'E';
-      break;
-case 15:
-    cout<<'F';
-      break;
-default:
-    cout<<converted.top();
-      break;
-    }
-        }else{
-            cout<<converted.top();
-        }
-
-    converted.pop();
-}
-}
 int main()
 {
-    int num1,base1,z,base2;
-    cout<<"enter number ";cin>>num1;
-    cout<<"enter base of number you entered ";cin>>base1;
-    cout<<"to which base you want to change ";cin>>base2;
-    stack<int>number;
-    int Num=num1;
-    while(Num>0){
-        int y;
-        y=Num%10;
-    number.push(y);
-    Num/=10;
-    }
-    bool k=true;
-while(!number.empty()){
-    if(number.top()<base1){
-        k&=true;
-    }else{
-    k&=false;
-}
-number.pop();
-}
+    cout<<"\t\t\t\twelcome"<<endl;
+    int base,num,num16;
+    string number;
+    cout<<"base ";
+    cin>>base;
+    if(base!=16){
+    cout<<"number ";
+    cin>>num;
 
-if(k){
-    if(num1==0){
-        cout<<0;
-    }else{
-        z=todecimal(num1,base1);
-        converter(z,base2);
+    int dec = 0, i = 0, rem;
+    int Num=num;
+    bool test=true;
+    while(Num>0)
+        {
+            int y;
+            y=Num%10;
+            if(y<base)
+                {
+                    test&=true;
+                }
+            else
+                {
+                    test&=false;
+                }
+            Num/=10;
+        }
+    if(test)
+        {
+            while (num!=0)
+                {
+                    rem = num % 10;
+                    num /= 10;
+                    dec += rem * pow(base, i);
+                    ++i;
+                }
+            int base2;
+            string converted,z;
+            cout<<"to which do you want to change ";
+            cin>>base2;
+            if(base2!=16)
+                {
+                    while(dec>0)
+                        {
+                            int y;
+                            y=dec%base2;
+                            z=to_string(y);
+                            converted.append(z);
+                            dec/=base2;
+                        }
+                }
+            else
+                {
+                    while(dec>0)
+                        {
+                            int y;
+                            y=dec%base2;
+                            switch(y)
+                                {
+                                case 10:
+                                    converted.append("A");
+                                    break;
+                                case 11:
+                                    converted.append("B");
+                                    break;
+                                case 12:
+                                    converted.append("C");
+                                    break;
+                                case 13:
+                                    converted.append("D");
+                                    break;
+                                case 14:
+                                    converted.append("E");
+                                    break;
+                                case 15:
+                                    converted.append("F");
+                                    break;
+                                default:
+                                    z=to_string(y);
+                                    converted.append(z);
+                                    break;
+                                }
+                            dec/=base2;
+                        }
+                }
+            reverse(converted.begin(),converted.end());
+            for(auto x:converted)
+                {
+                    cout<<x;
+                }
+        }
+    else
+        {
+            cout<<"invalid input";
+        }
     }
-}else{
-cout<<"invalid input"<<endl;
-}
-main();
-
-return 0;
+    main();
 }
